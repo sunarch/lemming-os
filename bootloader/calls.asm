@@ -47,39 +47,39 @@ get_string:
     jmp .loop
 
 .backspace:
-    cmp cl, 0         ; beginning of string?
-    je .loop          ; yes, ignore the key
+    cmp cl, 0            ; beginning of string?
+    je .loop             ; yes, ignore the key
 
     dec di
-    mov byte [di], 0  ; delete character
-    dec cl            ; decrement counter as well
+    mov byte [di], 0     ; delete character
+    dec cl               ; decrement counter as well
 
     mov ah, 0x0E
-    mov al, 0x08
-    int 10h           ; backspace on the screen
+    mov al, ASCII_BS
+    int 10h              ; backspace on the screen
 
-    mov al, ' '
-    int 10h           ; blank character out
+    mov al, ASCII_SPACE  ; (before: ' ')
+    int 10h              ; blank character out
 
-    mov al, 0x08
-    int 10h           ; backspace again
+    mov al, ASCII_BS
+    int 10h              ; backspace again
 
-    jmp .loop         ; go to the main loop
+    jmp .loop            ; go to the main loop
 
 .done:
-    mov al, 0     ; null terminator
+    mov al, ASCII_NUL    ; null terminator
     stosb
 
     mov ah, 0x0E
-    mov al, 0x0D
+    mov al, ASCII_CR
     int 0x10
-    mov al, 0x0A
+    mov al, ASCII_LF
     int 0x10      ; newline
 
     ret
 
 ; =============================================================================
-; call strcmp
+; CALL strcmp
 ; =============================================================================
 
 strcmp:
@@ -101,7 +101,7 @@ strcmp:
     clc  ; not equal, clear the carry flag
     ret
 
-.done:     
+.done:
     stc  ; equal, set the carry flag
     ret
 
