@@ -3,12 +3,12 @@
 ; COMMAND "hi"
 ; =============================================================================
 
-cmd_hi_name          db  'hi', 0
-cmd_hi_msg  db  'Hello OSDev World!', 0x0D, 0x0A, 0
+str_cmd_hi_name  db  'hi', ASCII_NUL
+str_cmd_hi_msg   db  'Hello OSDev World!', ASCII_CR, ASCII_LF, ASCII_NUL
 
 
 cmd_hi:
-    mov si, cmd_hi_msg
+    mov si, str_cmd_hi_msg
     call print_string
 
     jmp mainloop
@@ -17,11 +17,14 @@ cmd_hi:
 ; COMMAND "help"
 ; =============================================================================
 
-cmd_help_name  db  'help', 0
-cmd_help_msg  db  'LemmingOS: Commands: hi, help', 0x0D, 0x0A, 0
+str_cmd_help_name  db  'help', ASCII_NUL
+str_cmd_help_msg   db  'Commands: hi, help', ASCII_CR, ASCII_LF, ASCII_NUL
 
 cmd_help:
-    mov si, cmd_help_msg
+    mov si, str_version
+    call print_string
+
+    mov si, str_cmd_help_msg
     call print_string
 
     jmp mainloop
