@@ -44,8 +44,8 @@ mainloop:
 ; INCLUDES
 ; =============================================================================
 
-%include "commands.asm"  ; command calls
 %include "data.asm"      ; data
+%include "commands.asm"  ; command calls
 %include "calls.asm"     ; general calls
 
 ; =============================================================================
@@ -55,6 +55,4 @@ mainloop:
 times 510-($-$$) db 0
 
 ; bootloader signature (the BIOS may require it)
-;dw 0AA55h
-db 0x55
-db 0xAA
+dw BOOTLOADER_SIGNATURE

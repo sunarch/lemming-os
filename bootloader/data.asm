@@ -1,4 +1,7 @@
 
+
+%define  BOOTLOADER_SIGNATURE  0AA55h  ;  first 0x55, then 0xAA (little endian)
+
 str_welcome      db  'Welcome to LemmingOS!', ASCII_CR, ASCII_LF, ASCII_NUL
 str_bad_command  db  'Bad command entered.', ASCII_CR, ASCII_LF, ASCII_NUL
 str_prompt       db  '>', ASCII_NUL
