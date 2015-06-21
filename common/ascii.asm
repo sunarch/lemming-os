@@ -37,6 +37,12 @@
 %define  ASCII_RS              0x1E  ;  30, RS  (record separator)
 %define  ASCII_US              0x1F  ;  31, US  (unit separator)
 
+; Line breaks
+
+%define  ASCII_LINEBREAK_WIN   ASCII_CR, ASCII_LF
+%define  ASCII_LINEBREAK_MAC   ASCII_CR
+%define  ASCII_LINEBREAK_UNIX  ASCII_LF
+
 ; ASCII printable characters (character code 32-127)
 
 %define  ASCII_SPACE           0x20  ;  32, Space

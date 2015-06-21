@@ -4,7 +4,7 @@
 ; =============================================================================
 
 str_cmd_hi_name  db  'hi', ASCII_NUL
-str_cmd_hi_msg   db  'Sorry, I am not Turing-complete.', ASCII_CR, ASCII_LF, ASCII_NUL
+str_cmd_hi_msg   db  'Sorry, I am not Turing-complete.', ASCII_LINEBREAK_WIN, ASCII_NUL
 
 
 cmd_hi:
@@ -18,7 +18,7 @@ cmd_hi:
 ; =============================================================================
 
 str_cmd_help_name  db  'help', ASCII_NUL
-str_cmd_help_msg   db  'Commands: hi, help', ASCII_CR, ASCII_LF, ASCII_NUL
+str_cmd_help_msg   db  'Commands: hi, help', ASCII_LINEBREAK_WIN, ASCII_NUL
 
 cmd_help:
     mov si, str_version
