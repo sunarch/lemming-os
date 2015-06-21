@@ -8,7 +8,7 @@ bits 16      ; tell the assembler we want 16 bit code
     mov ss, ax         ; setup stack
     mov sp, 0x7C00     ; stack grows downwards from 0x7C00
 
-    mov si, welcome
+    mov si, str_welcome
     call print_string
 
 ; =============================================================================
@@ -16,7 +16,7 @@ bits 16      ; tell the assembler we want 16 bit code
 ; =============================================================================
 
 mainloop:
-    mov si, prompt
+    mov si, str_prompt
     call print_string
 
     mov di, buffer
@@ -36,7 +36,7 @@ mainloop:
     call strcmp
     jc cmd_help
 
-    mov si, badcommand
+    mov si, str_bad_command
     call print_string
     jmp mainloop
 

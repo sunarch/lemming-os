@@ -21,7 +21,7 @@ str_cmd_help_name  db  'help', ASCII_NUL
 str_cmd_help_msg   db  'Commands: hi, help', ASCII_CR, ASCII_LF, ASCII_NUL
 
 cmd_help:
-    mov si, version
+    mov si, str_version
     call print_string
 
     mov si, str_cmd_help_msg
