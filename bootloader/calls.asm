@@ -11,7 +11,7 @@ print_string:
     jz .done          ; if the result is zero, get out
 
     mov ah, 0x0E
-    int 0x10          ; otherwise, print out the character!
+    int INT_VIDEO     ; otherwise, print out the character!
 
     jmp print_string
 
@@ -28,21 +28,21 @@ get_string:
 
 .loop:
     mov ah, 0
-    int 0x16       ; wait for keypress
+    int INT_KEYBOARD     ; wait for keypress
 
-    cmp al, 0x08   ; backspace pressed?
-    je .backspace  ; yes, handle it
+    cmp al, 0x08         ; backspace pressed?
+    je .backspace        ; yes, handle it
 
-    cmp al, 0x0D   ; enter pressed?
-    je .done       ; yes, we're done
+    cmp al, 0x0D         ; enter pressed?
+    je .done             ; yes, we're done
 
-    cmp cl, 0x3F   ; 63 chars inputted?
-    je .loop       ; yes, only let in backspace and enter
+    cmp cl, 63           ; 63 chars inputted?
+    je .loop             ; yes, only let in backspace and enter
 
     mov ah, 0x0E
-    int 0x10       ; print out character
+    int INT_VIDEO        ; print out character
 
-    stosb          ; put character in buffer
+    stosb                ; put character in buffer
     inc cl
     jmp .loop
 
@@ -56,13 +56,13 @@ get_string:
 
     mov ah, 0x0E
     mov al, ASCII_BS
-    int 10h              ; backspace on the screen
+    int INT_VIDEO        ; backspace on the screen
 
     mov al, ASCII_SPACE  ; (before: ' ')
-    int 10h              ; blank character out
+    int INT_VIDEO        ; blank character out
 
     mov al, ASCII_BS
-    int 10h              ; backspace again
+    int INT_VIDEO        ; backspace again
 
     jmp .loop            ; go to the main loop
 
@@ -72,9 +72,9 @@ get_string:
 
     mov ah, 0x0E
     mov al, ASCII_CR
-    int 0x10
+    int INT_VIDEO
     mov al, ASCII_LF
-    int 0x10      ; newline
+    int INT_VIDEO        ; newline
 
     ret
 
