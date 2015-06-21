@@ -1,6 +1,7 @@
 
 ; preprocesor definitions
-%include "ascii.asm"       ; ascii characters
+%include "ascii.asm"         ; ASCII characters
+%include "metadata.asm"      ; Operating System metadata
 
 ; bootloader
 %include "bootloader.asm"
