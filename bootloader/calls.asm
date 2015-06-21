@@ -30,10 +30,10 @@ get_string:
     mov ah, 0
     int INT_KEYBOARD     ; wait for keypress
 
-    cmp al, 0x08         ; backspace pressed?
+    cmp al, ASCII_BS     ; backspace pressed?
     je .backspace        ; yes, handle it
 
-    cmp al, 0x0D         ; enter pressed?
+    cmp al, ASCII_CR     ; enter pressed?
     je .done             ; yes, we're done
 
     cmp cl, 63           ; 63 chars inputted?
