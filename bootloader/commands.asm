@@ -4,7 +4,7 @@
 ; =============================================================================
 
 str_cmd_hi_name  db  'hi', ASCII_NUL
-str_cmd_hi_msg   db  'Hello OSDev World!', ASCII_CR, ASCII_LF, ASCII_NUL
+str_cmd_hi_msg   db  'Sorry, I am not Turing-complete.', ASCII_CR, ASCII_LF, ASCII_NUL
 
 
 cmd_hi:
