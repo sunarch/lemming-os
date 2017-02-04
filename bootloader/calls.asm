@@ -1,3 +1,4 @@
+; assembler: NASM - Netwide Assembler
 
 ; =============================================================================
 ; CALL print_string

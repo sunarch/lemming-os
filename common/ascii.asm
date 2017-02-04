@@ -1,3 +1,4 @@
+; assembler: NASM - Netwide Assembler
 
 ; ASCII codes - preprocessor definitions
 ; LemmingOS: max. identifier length: 20 characters

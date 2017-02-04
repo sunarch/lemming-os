@@ -1,3 +1,4 @@
+; assembler: NASM - Netwide Assembler
 
 ; Operating System MetaData - preprocessor definitions
 

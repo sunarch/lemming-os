@@ -1,4 +1,4 @@
-
+; assembler: NASM - Netwide Assembler
 
 %define  BOOTLOADER_SIGNATURE  0AA55h  ;  first 0x55, then 0xAA (little endian)
 

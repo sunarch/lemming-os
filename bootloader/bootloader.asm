@@ -1,3 +1,4 @@
+; assembler: NASM - Netwide Assembler
 
 org 0x7C00   ; add 0x7C00 to label addresses
 bits 16      ; tell the assembler we want 16 bit code

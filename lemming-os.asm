@@ -1,3 +1,4 @@
+; assembler: NASM - Netwide Assembler
 
 ; preprocesor definitions
 %include "ascii.asm"         ; ASCII characters
