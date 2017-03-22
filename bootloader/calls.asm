@@ -40,7 +40,7 @@ get_string:
     cmp cl, 63           ; 63 chars inputted?
     je .loop             ; yes, only let in backspace and enter
 
-    mov ah, 0x0E
+    mov ah, INT_VIDEO_FUNC_0Eh
     int INT_VIDEO        ; print out character
 
     stosb                ; put character in buffer
@@ -55,7 +55,7 @@ get_string:
     mov byte [di], 0     ; delete character
     dec cl               ; decrement counter as well
 
-    mov ah, 0x0E
+    mov ah, INT_VIDEO_FUNC_0Eh
     mov al, ASCII_BS
     int INT_VIDEO        ; backspace on the screen
 
@@ -71,7 +71,7 @@ get_string:
     mov al, ASCII_NUL    ; null terminator
     stosb
 
-    mov ah, 0x0E
+    mov ah, INT_VIDEO_FUNC_0Eh
     mov al, ASCII_CR
     int INT_VIDEO
     mov al, ASCII_LF
