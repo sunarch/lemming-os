@@ -5,7 +5,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-ISO='./build/LemmingOS.bin'
+ISO='./build/LemmingOS.hdd'
 RAM='1G'
 
 qemu-system-x86_64 \

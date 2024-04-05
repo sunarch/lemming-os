@@ -2,10 +2,12 @@
 ; License, v. 2.0. If a copy of the MPL was not distributed with this
 ; file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+; ============================================================================ ;
 
 ; ASCII codes - preprocessor definitions
 ; LemmingOS: max. identifier length: 20 characters
 
+; ============================================================================ ;
 ; ASCII control characters (character code 0-31)
 
 %define  ASCII_NUL             0x00  ;   0, NUL (null)
@@ -41,6 +43,7 @@
 %define  ASCII_RS              0x1E  ;  30, RS  (record separator)
 %define  ASCII_US              0x1F  ;  31, US  (unit separator)
 
+; ============================================================================ ;
 ; ASCII printable characters (character code 32-127)
 
 %define  ASCII_SPACE           0x20  ;  32, Space
@@ -140,6 +143,7 @@
 %define  ASCII_TILDE           0x7E  ; 126, ~ (Equivalency sign / tilde)
 %define  ASCII_DEL             0x7F  ; 127, (delete)
 
+; ============================================================================ ;
 ; The extended ASCII codes (character code 128-255)
 
 %define  ASCII_EURO            0x80  ; 128, € (Euro sign)
@@ -270,3 +274,5 @@
 %define  ASCII_LOW_Y_ACUTE     0xFD  ; 253 ý (Latin small letter y with acute)
 %define  ASCII_LOW_THORN       0xFE  ; 254 þ (Latin small letter thorn)
 %define  ASCII_LOW_Y_UML       0xFF  ; 255 ÿ (Latin small letter y with diaeresis)
+
+; ============================================================================ ;

@@ -2,8 +2,8 @@
 ; License, v. 2.0. If a copy of the MPL was not distributed with this
 ; file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-
-; COMMAND "hi" =================================================================
+; ============================================================================ ;
+; COMMAND "hi"
 
 str_cmd_hi_name  db  'hi', ASCII_NUL
 str_cmd_hi_msg   db  'Hello OSDev World!', ASCII_CR, ASCII_LF, ASCII_NUL
@@ -15,7 +15,8 @@ cmd_hi:
 
     jmp mainloop
 
-; COMMAND "help" ===============================================================
+; ============================================================================ ;
+; COMMAND "help"
 
 str_cmd_help_name  db  'help', ASCII_NUL
 str_cmd_help_msg   db  'Commands: hi, help', ASCII_CR, ASCII_LF, ASCII_NUL
@@ -29,4 +30,4 @@ cmd_help:
 
     jmp mainloop
 
-; END ==========================================================================
+; ============================================================================ ;

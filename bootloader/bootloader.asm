@@ -2,6 +2,7 @@
 ; License, v. 2.0. If a copy of the MPL was not distributed with this
 ; file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+; ============================================================================ ;
 
 org 0x7C00   ; add 0x7C00 to label addresses
 bits 16      ; tell the assembler we want 16 bit code
@@ -15,7 +16,8 @@ bits 16      ; tell the assembler we want 16 bit code
     mov si, str_welcome
     call print_string
 
-; MAIN loop ====================================================================
+; ============================================================================ ;
+; MAIN loop
 
 mainloop:
     mov si, str_prompt
@@ -42,13 +44,17 @@ mainloop:
     call print_string
     jmp mainloop
 
-; INCLUDES =====================================================================
+; ============================================================================ ;
+; INCLUDES
+
+%include "../common/ascii.asm"
 
 %include "commands.asm"  ; command calls
 %include "data.asm"      ; data
 %include "calls.asm"     ; general calls
 
-; MAIN =========================================================================
+; ============================================================================ ;
+; MAIN
 
 times 510-($-$$) db 0
 
@@ -57,4 +63,4 @@ times 510-($-$$) db 0
 db 0x55
 db 0xAA
 
-; END ==========================================================================
+; ---------------------------------------------------------------------------- ;
