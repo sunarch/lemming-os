@@ -47,8 +47,10 @@ mainloop:
 ; ============================================================================ ;
 ; INCLUDES
 
-%include "../common/ascii.asm"
+; macros
+%include "ascii.asm"
 
+; parts
 %include "commands.asm"  ; command calls
 %include "data.asm"      ; data
 %include "calls.asm"     ; general calls

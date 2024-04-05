@@ -13,7 +13,7 @@ rm 'build/LemmingOS.hdd'
 # bootloader
 
 # assemble
-nasm './bootloader/bootloader.asm' -i './common/' -i './bootloader/' -f bin -o './build/bootloader.bin'
+nasm './bootloader/bootloader.asm' -i './macros/' -i './bootloader/' -f bin -o './build/bootloader.bin'
  
 # copy to bootable hdd image
 dd if='build/bootloader.bin' of='build/LemmingOS.hdd' bs=512 count=1
