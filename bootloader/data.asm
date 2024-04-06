@@ -11,6 +11,7 @@ str_version      db  "LemmingOS v.0.1.1 Alpha", ASCII_CR, ASCII_LF, ASCII_NUL
 
 ; ============================================================================ ;
 
-buffer  times 64  db  0
+%define  BUFFER_LEN  64
+buffer  times BUFFER_LEN  db  0
 
 ; ============================================================================ ;

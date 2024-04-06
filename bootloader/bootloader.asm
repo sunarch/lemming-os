@@ -55,6 +55,7 @@ mainloop:
 
 ; macros
 %include "ascii.asm"
+%include "interrupts.asm"
 
 ; parts
 %include "commands.asm"  ; command calls

@@ -12,8 +12,9 @@ print_string:
     or al, al         ; logical or AL by itself
     jz .done          ; if the result is zero, get out
 
-    mov ah, 0x0E
-    int 0x10          ; otherwise, print out the character!
+                      ; otherwise
+    int_video_write_char_tty
+    int_video
 
     jmp print_string
 
@@ -28,22 +29,22 @@ get_string:
     xor cl, cl
 
 .loop:
-    mov ah, 0
-    int 0x16       ; wait for keypress
+    int_keyboard_read_char
+    int_keyboard            ; wait for keypress
 
-    cmp al, 0x08   ; backspace pressed?
-    je .backspace  ; yes, handle it
+    cmp al, ASCII_BS        ; backspace pressed?
+    je .backspace           ; yes, handle it
 
-    cmp al, 0x0D   ; enter pressed?
-    je .done       ; yes, we're done
+    cmp al, ASCII_CR        ; enter pressed?
+    je .done                ; yes, we're done
 
-    cmp cl, 0x3F   ; 63 chars inputted?
-    je .loop       ; yes, only let in backspace and enter
+    cmp cl, BUFFER_LEN - 1  ; 63 chars inputted?
+    je .loop                ; yes, only let in backspace and enter
 
-    mov ah, 0x0E
-    int 0x10       ; print out character
+    int_video_write_char_tty
+    int_video
 
-    stosb          ; put character in buffer
+    stosb                   ; put character in buffer
     inc cl
     jmp .loop
 
@@ -55,15 +56,16 @@ get_string:
     mov byte [di], 0  ; delete character
     dec cl            ; decrement counter as well
 
-    mov ah, 0x0E
-    mov al, 0x08
-    int 10h           ; backspace on the screen
+    int_video_write_char_tty
 
-    mov al, ' '
-    int 10h           ; blank character out
+    int_video_write_char_tty_arg  ASCII_BS
+    int_video
 
-    mov al, 0x08
-    int 10h           ; backspace again
+    int_video_write_char_tty_arg  ASCII_SPACE
+    int_video
+
+    int_video_write_char_tty_arg  ASCII_BS
+    int_video
 
     jmp .loop         ; go to the main loop
 
@@ -71,11 +73,11 @@ get_string:
     mov al, 0     ; null terminator
     stosb
 
-    mov ah, 0x0E
-    mov al, 0x0D
-    int 0x10
-    mov al, 0x0A
-    int 0x10      ; newline
+    int_video_write_char_tty
+    int_video_write_char_tty_arg  ASCII_CR
+    int_video
+    int_video_write_char_tty_arg  ASCII_LF
+    int_video
 
     ret
 
