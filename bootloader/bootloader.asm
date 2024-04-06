@@ -3,6 +3,12 @@
 ; file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 ; ============================================================================ ;
+; classical generic MBR (Master Boot Record)
+
+; total size: 446 + 4x16 + 2 = 512 bytes
+
+; ============================================================================ ;
+; Bootstrap Code
 
 org 0x7C00   ; add 0x7C00 to label addresses
 bits 16      ; tell the assembler we want 16 bit code
@@ -56,13 +62,30 @@ mainloop:
 %include "calls.asm"     ; general calls
 
 ; ============================================================================ ;
-; MAIN
+; PADDING
 
-times 510-($-$$) db 0
+times 446-($-$$) db 0
 
-; bootloader signature (the BIOS may require it)
-;dw 0AA55h
-db 0x55
-db 0xAA
+; ============================================================================ ;
+; Partition Table (primary partitions)
 
-; ---------------------------------------------------------------------------- ;
+; Partition entry #1
+times 16  db  0
+
+; Partition entry #2
+times 16  db  0
+
+; Partition entry #3
+times 16  db  0
+
+; Partition entry #4
+times 16  db  0
+
+; ============================================================================ ;
+; Boot Signature (the BIOS may require it)
+; dw 0AA55h
+
+db 0x55 ; offset 510
+db 0xAA ; offset 511
+
+; ============================================================================ ;
