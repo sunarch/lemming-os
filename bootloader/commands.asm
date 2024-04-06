@@ -8,7 +8,6 @@
 str_cmd_hi_name  db  'hi', ASCII_NUL
 str_cmd_hi_msg   db  'Hello OSDev World!', ASCII_CR, ASCII_LF, ASCII_NUL
 
-
 cmd_hi:
     mov si, str_cmd_hi_msg
     call print_string

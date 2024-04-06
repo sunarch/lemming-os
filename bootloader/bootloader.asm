@@ -8,16 +8,25 @@
 ; total size: 446 + 4x16 + 2 = 512 bytes
 
 ; ============================================================================ ;
+; INCLUDES - macros
+
+%include "ascii.asm"
+%include "interrupts.asm"
+
+; ============================================================================ ;
 ; Bootstrap Code
 
-org 0x7C00   ; add 0x7C00 to label addresses
-bits 16      ; tell the assembler we want 16 bit code
+org 0x7C00
+bits 16
 
-    mov ax, 0          ; set up segments
+    ; set up segments
+    mov ax, 0x00
     mov ds, ax
     mov es, ax
-    mov ss, ax         ; setup stack
-    mov sp, 0x7C00     ; stack grows downwards from 0x7C00
+
+    ; setup stack
+    mov ss, ax
+    mov sp, 0x7C00  ; stack grows downwards from 0x7C00
 
     mov si, str_welcome
     call print_string
@@ -33,16 +42,18 @@ mainloop:
     call get_string
 
     mov si, buffer
-    cmp byte [si], 0       ; blank line?
-    je mainloop            ; yes, ignore it
+    cmp byte [si], ASCII_NUL  ; blank line?
+    je mainloop
 
+    ; "hi" command
     mov si, buffer
-    mov di, str_cmd_hi_name    ; "hi" command
+    mov di, str_cmd_hi_name
     call strcmp
     jc cmd_hi
 
+    ; "help" command
     mov si, buffer
-    mov di, str_cmd_help_name  ; "help" command
+    mov di, str_cmd_help_name
     call strcmp
     jc cmd_help
 
@@ -51,16 +62,11 @@ mainloop:
     jmp mainloop
 
 ; ============================================================================ ;
-; INCLUDES
+; INCLUDES - parts
 
-; macros
-%include "ascii.asm"
-%include "interrupts.asm"
-
-; parts
-%include "commands.asm"  ; command calls
-%include "data.asm"      ; data
-%include "calls.asm"     ; general calls
+%include "commands.asm"
+%include "data.asm"
+%include "calls.asm"
 
 ; ============================================================================ ;
 ; PADDING
@@ -86,7 +92,7 @@ times 16  db  0
 ; Boot Signature (the BIOS may require it)
 ; dw 0AA55h
 
-db 0x55 ; offset 510
-db 0xAA ; offset 511
+db 0x55 ; at offset 510
+db 0xAA ; at offset 511
 
 ; ============================================================================ ;

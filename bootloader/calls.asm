@@ -7,12 +7,12 @@
 
 print_string:
 
-    lodsb             ; grab a byte from SI
+    lodsb  ; grab a byte from SI
 
-    or al, al         ; logical or AL by itself
-    jz .done          ; if the result is zero, get out
+    ; check for null terminator
+    or al, al
+    jz .done
 
-                      ; otherwise
     int_video_write_char_tty
     int_video
 
@@ -30,7 +30,7 @@ get_string:
 
 .loop:
     int_keyboard_read_char
-    int_keyboard            ; wait for keypress
+    int_keyboard  ; wait for keypress
 
     int_keyboard_read_char_cmp ASCII_BS
     je .backspace
@@ -38,45 +38,48 @@ get_string:
     int_keyboard_read_char_cmp ASCII_CR
     je .done
 
-    cmp cl, BUFFER_LEN - 1  ; 63 chars inputted?
-    je .loop                ; yes, only let in backspace and enter
+    ; if buffer full, only let in backspace and enter
+    cmp cl, BUFFER_LEN - 1
+    je .loop
 
     int_video_write_char_tty
     int_video
 
-    stosb                   ; put character in buffer
+    ; put character in buffer
+    stosb
     inc cl
     jmp .loop
 
 .backspace:
-    cmp cl, 0         ; beginning of string?
-    je .loop          ; yes, ignore the key
+    ; ignore if beginning of string
+    cmp cl, 0
+    je .loop
 
     dec di
-    mov byte [di], 0  ; delete character
-    dec cl            ; decrement counter as well
+    mov byte [di], ASCII_NUL  ; delete character
+    dec cl  ; decrement counter as well
 
     int_video_write_char_tty
 
-    int_video_write_char_tty_arg  ASCII_BS
+    int_video_write_char_tty_arg ASCII_BS
     int_video
 
-    int_video_write_char_tty_arg  ASCII_SPACE
+    int_video_write_char_tty_arg ASCII_SPACE
     int_video
 
-    int_video_write_char_tty_arg  ASCII_BS
+    int_video_write_char_tty_arg ASCII_BS
     int_video
 
-    jmp .loop         ; go to the main loop
+    jmp .loop
 
 .done:
-    mov al, 0     ; null terminator
+    mov al, ASCII_NUL
     stosb
 
     int_video_write_char_tty
-    int_video_write_char_tty_arg  ASCII_CR
+    int_video_write_char_tty_arg ASCII_CR
     int_video
-    int_video_write_char_tty_arg  ASCII_LF
+    int_video_write_char_tty_arg ASCII_LF
     int_video
 
     ret
@@ -87,17 +90,18 @@ get_string:
 strcmp:
 
 .loop:
-    mov al, [si]   ; grab a byte from SI
-    mov bl, [di]   ; grab a byte from DI
-    cmp al, bl     ; are they equal?
-    jne .notequal  ; nope, we're done.
+    mov al, [si]
+    mov bl, [di]
+    cmp al, bl
+    jne .notequal
 
-    cmp al, 0      ; are both bytes (they were equal before) null?
-    je .done       ; yes, we're done.
+    ; are both bytes (they were equal before) null?
+    cmp al, ASCII_NUL
+    je .done
 
-    inc di         ; increment DI
-    inc si         ; increment SI
-    jmp .loop      ; loop!
+    inc di
+    inc si
+    jmp .loop
 
 .notequal:
     clc  ; not equal, clear the carry flag
