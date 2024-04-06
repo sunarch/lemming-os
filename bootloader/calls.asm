@@ -32,11 +32,11 @@ get_string:
     int_keyboard_read_char
     int_keyboard            ; wait for keypress
 
-    cmp al, ASCII_BS        ; backspace pressed?
-    je .backspace           ; yes, handle it
+    int_keyboard_read_char_cmp ASCII_BS
+    je .backspace
 
-    cmp al, ASCII_CR        ; enter pressed?
-    je .done                ; yes, we're done
+    int_keyboard_read_char_cmp ASCII_CR
+    je .done
 
     cmp cl, BUFFER_LEN - 1  ; 63 chars inputted?
     je .loop                ; yes, only let in backspace and enter

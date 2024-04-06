@@ -93,6 +93,9 @@
 
 ; Read Character
 %define  int_keyboard_read_char         mov ah, 0x00
+%macro   int_keyboard_read_char_cmp  1
+    cmp al, %1
+%endmacro
 
 ; Read Input Status
 %define  int_keyboard_input_status      mov ah, 0x01
